@@ -1,20 +1,24 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+// App.js
+import React, { useState } from 'react';
+import AppNavigation from './src/navigation/AppNavigation';
+import { Provider as PaperProvider } from 'react-native-paper';
+import SplashScreen from './src/screens/SplashScreen'; // Adjust the path to where your SplashScreen is located
 
 export default function App() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  const handleFinishLoading = () => {
+    setIsLoading(false);
+  };
+  console.log('App component rendered'); // Log when this component renders
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <PaperProvider>
+      {isLoading ? (
+        <SplashScreen onFinish={handleFinishLoading} />
+      ) : (
+        <AppNavigation />
+      )}
+    </PaperProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
